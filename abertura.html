@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RFL•★•REAL | Abertura Elite</title>
+    <title>RFL•★•REAL | Abertura</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
 
@@ -16,28 +16,19 @@
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background: var(--bg-deep);
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            font-family: 'Outfit', sans-serif;
+            height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; font-family: 'Outfit', sans-serif;
         }
 
-        /* --- CONTAINER PRINCIPAL --- */
         .master-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 10;
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; z-index: 10;
         }
 
-        /* --- NOME DENTRO DA CÁPSULA DE VIDRO --- */
+        /* Nome em Borda de Vidro Suave */
         .glass-capsule {
             padding: 22px 60px;
             background: var(--glass-bg);
@@ -45,84 +36,48 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 
-                        inset 0 0 10px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             margin-bottom: 25px;
             animation: floating 4s infinite ease-in-out;
-            text-align: center;
         }
 
         .name {
-            font-weight: 900;
-            font-size: 3.2rem;
-            color: #ffffff;
-            letter-spacing: 10px;
-            margin: 0;
+            font-weight: 900; font-size: 3.2rem;
+            color: #ffffff; letter-spacing: 10px; margin: 0;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            user-select: none;
         }
 
-        /* --- FRASE COM BRILHO REALÇADO --- */
+        /* Frase com Brilho Branco Realçado */
         .phrase {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 14px;
-            margin-top: 5px;
-            /* Destaque atraente e discreto: Brilho Branco Intenso */
-            text-shadow: 0 0 10px var(--glow-white), 
-                         0 0 25px rgba(255, 255, 255, 0.6),
-                         0 0 45px rgba(255, 255, 255, 0.2);
+            font-weight: 700; font-size: 1.2rem;
+            color: #ffffff; text-transform: uppercase;
+            letter-spacing: 14px; margin-top: 5px;
+            text-shadow: 0 0 15px var(--glow-white), 0 0 30px rgba(255, 255, 255, 0.4);
             opacity: 0;
             animation: fadeInGlow 2s forwards 0.8s;
-            user-select: none;
         }
 
-        /* --- LINHA PULSANTE DE PONTA A PONTA --- */
+        /* Linha Pulsante de Ponta a Ponta */
         .full-screen-line {
-            position: absolute;
-            bottom: 20%;
-            width: 100vw;
-            height: 2px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute; bottom: 20%;
+            width: 100vw; height: 2px;
+            display: flex; justify-content: center;
         }
 
         .line-glow {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.9) 50%, 
-                transparent 100%);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            box-shadow: 0 0 20px #fff;
             animation: line-pulse 3s infinite ease-in-out;
         }
 
-        /* --- ANIMAÇÕES --- */
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes fadeInGlow { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes line-pulse { 0%, 100% { transform: scaleX(0.1); opacity: 0.1; } 50% { transform: scaleX(1); opacity: 1; } }
 
-        @keyframes fadeInGlow {
-            from { opacity: 0; transform: translateY(10px); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        @keyframes line-pulse {
-            0%, 100% { opacity: 0.1; transform: scaleX(0.1); }
-            50% { opacity: 1; transform: scaleX(1); }
-        }
-
-        /* --- RESPONSIVIDADE (MOBILE) --- */
         @media (max-width: 600px) {
             .name { font-size: 2rem; letter-spacing: 5px; }
             .phrase { font-size: 0.8rem; letter-spacing: 7px; text-align: center; }
-            .glass-capsule { padding: 15px 35px; }
-            .full-screen-line { bottom: 25%; }
         }
     </style>
 </head>
@@ -132,7 +87,6 @@
         <div class="glass-capsule">
             <h1 class="name">RFL•★•REAL</h1>
         </div>
-        
         <p class="phrase">Bem-vindo ao topo.</p>
     </div>
 
@@ -141,17 +95,19 @@
     </div>
 
     <script>
-        // Redireciona para o index.html após a animação de impacto
+        // REDIRECIONAMENTO AUTOMÁTICO
         window.addEventListener('load', () => {
+            // Aguarda 5 segundos (tempo da animação) e muda de página
             setTimeout(() => {
-                // Adiciona um efeito de saída suave antes de mudar de página
+                // Efeito de saída suave (fade out)
                 document.body.style.transition = "opacity 1s ease";
                 document.body.style.opacity = "0";
                 
                 setTimeout(() => {
-                    window.location.href = "index.html"; 
+                    // DIRECIONA PARA O CORACAO.HTML
+                    window.location.href = "coracao.html"; 
                 }, 1000);
-            }, 5000); // 5 segundos para curtir a abertura
+            }, 5000); 
         });
     </script>
 </body>
