@@ -176,15 +176,22 @@
         @keyframes led-blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; box-shadow: 0 0 8px var(--accent); } }
 
         /* ÁREA CENTRAL DE MÍDIA */
-        .center-feed {
-            padding: 20px;
-            overflow-y: auto;
-            scrollbar-width: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        /* --- ESTILO DO POST DE ELITE (PARA O CENTRO) --- */
+       .center-feed {
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    -webkit-overflow-scrolling: touch; 
+    width: 100%;
+} 
+
+.center-feed::-webkit-scrollbar {
+    display: none;
+}
+       
         .elite-post {
             width: 95%;
             max-width: 500px; /* Tamanho ideal para fotos/vídeos */
@@ -240,6 +247,60 @@
 
         .post-caption { font-size: 0.8rem; color: #eee; line-height: 1.5; margin: 0; }
         .post-caption strong { color: var(--accent); margin-right: 5px; }
+        /* AJUSTES PARA CELULAR (MOBILE) */
+@media (max-width: 600px) {
+    .main-wrapper {
+        grid-template-columns: 1fr; /* Remove as colunas laterais e deixa o feed ocupar tudo */
+        margin-top: 80px;
+    }
+
+    .left-column, .right-column {
+        display: none; /* Esconde os botões laterais para não poluir a tela pequena */
+    }
+
+    .center-feed {
+        padding: 10px;
+        width: 100%;
+    padding-bottom: 100px; 
+    }
+
+    .elite-post {
+        width: 100%;
+        border-radius: 0; /* Posts sem borda arredondada nas laterais ficam mais modernos no celular */
+        border-left: none;
+        border-right: none;
+    }
+
+    .brand-name {
+        font-size: 1rem; /* Diminui um pouco o nome para caber tudo no topo */
+    }
+    .mobile-nav {
+        display: flex; /* Aqui ela passa a existir no celular */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(15px);
+        border-top: var(--border);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 2000;
+        padding-bottom: 10px;
+    }
+
+    .mobile-nav i {
+        font-size: 1.4rem;
+        color: #444;
+        cursor: pointer;
+    }
+
+    .mobile-nav i.active {
+        color: var(--accent);
+        text-shadow: 0 0 10px var(--accent);
+    }
+}
     </style>
 </head>
 <body>
@@ -307,45 +368,106 @@
    <div class="post-center-anchor">
         <div class="btn-plus-master"><i class="fa-solid fa-plus"></i></div>
     </div>
+    <nav class="mobile-nav">
+        <i class="fa-solid fa-house active"></i>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <div style="width: 50px;"></div> <i class="fa-solid fa-bell"></i>
+        <i class="fa-solid fa-user"></i>
+    </nav>
 
-    <script>
-        // Função para curtir o post
-        const heartBtn = document.querySelector('.fa-heart').parentElement;
-        let liked = false;
+   <script>
+    
+    const heartBtn = document.querySelector('.fa-heart').parentElement;
+    let liked = false;
 
-        heartBtn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            const text = this.innerText.split(' ');
-            let count = parseFloat(text[1]);
+    heartBtn.addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        if(!liked) {
+            icon.style.color = 'var(--accent)';
+            icon.style.textShadow = '0 0 15px var(--accent)';
+            this.style.color = 'var(--accent)';
+            this.innerHTML = `<i class="fa-solid fa-heart" style="color: var(--accent); text-shadow: 0 0 15px var(--accent);"></i> 1.6k`;
+            liked = true;
+        } else {
+            icon.style.color = '';
+            icon.style.textShadow = '';
+            this.style.color = '';
+            this.innerHTML = `<i class="fa-solid fa-heart"></i> 1.5k`;
+            liked = false;
+        }
+    });
 
-            if(!liked) {
-                icon.style.color = 'var(--accent)';
-                icon.style.textShadow = '0 0 15px var(--accent)';
-                this.style.color = 'var(--accent)';
-                this.innerHTML = `<i class="fa-solid fa-heart" style="color: var(--accent); text-shadow: 0 0 15px var(--accent);"></i> ${(count + 0.1).toFixed(1)}k`;
-                liked = true;
-            } else {
-                icon.style.color = '';
-                icon.style.textShadow = '';
-                this.style.color = '';
-                this.innerHTML = `<i class="fa-solid fa-heart"></i> 1.5k`;
-                liked = false;
+    
+    const navElements = document.querySelectorAll('.nav-btn, .mobile-nav i');
+
+    navElements.forEach(el => {
+        el.addEventListener('click', function() {
+            navElements.forEach(item => {
+                item.classList.remove('active');
+                item.style.color = '#444';
+                if(item.classList.contains('nav-btn')) {
+                    item.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                }
+            });
+            this.classList.add('active');
+            this.style.color = 'var(--accent)';
+            if(this.classList.contains('nav-btn')) {
+                this.style.borderColor = 'var(--accent)';
             }
         });
+    });
 
-        // Efeito de seleção nos botões laterais
-        const allBtns = document.querySelectorAll('.nav-btn');
-        allBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                allBtns.forEach(b => {
-                    b.style.color = '#444';
-                    b.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                });
-                this.style.color = 'var(--accent)';
-                this.style.borderColor = 'var(--accent)';
-            });
-        });
-    </script>
+    
+    const plusBtn = document.querySelector('.btn-plus-master');
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'file';
+    hiddenInput.accept = 'image/*';
+
+    plusBtn.addEventListener('click', () => {
+        hiddenInput.click();
+    });
+
+    hiddenInput.addEventListener('change', () => {
+        if(hiddenInput.files.length > 0) {
+            alert("RFL•★•REAL: Foto selecionada! Sistema pronto para publicação.");
+        }
+    });
+
+    
+    const postMedia = document.querySelector('.post-media');
+
+    postMedia.addEventListener('dblclick', function() {
+        if(!liked) heartBtn.click();
+        
+        const heartOverlay = document.createElement('i');
+        heartOverlay.className = 'fa-solid fa-heart';
+        heartOverlay.style.cssText = `
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 5rem;
+            color: white;
+            text-shadow: 0 0 20px var(--accent);
+            animation: heart-pop 0.8s ease-out;
+            z-index: 10;
+            pointer-events: none;
+        `;
+        
+        this.appendChild(heartOverlay);
+        setTimeout(() => heartOverlay.remove(), 800);
+    });
+
+    
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes heart-pop { 
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
 
 </body> 
 </html>
