@@ -144,6 +144,106 @@
             .grid-container { grid-template-columns: 1fr; }
             aside { display: none; }
         }
+        /* --- CHAT GLOBAL EMPRESARIAL --- */
+#chat-wrapper {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 2500;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Botão de abrir o Chat */
+.chat-trigger {
+    width: 55px;
+    height: 55px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: 0.4s;
+}
+.chat-trigger:hover { transform: scale(1.1); background: rgba(255, 255, 255, 0.2); }
+
+/* Caixa do Chat */
+.chat-window {
+    width: 320px;
+    height: 450px;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    margin-bottom: 15px;
+    display: none; /* Escondido por padrão */
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    animation: fadeInUp 0.4s ease;
+}
+
+.chat-header {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat-header h4 { font-family: 'Outfit'; font-size: 0.9rem; margin: 0; letter-spacing: 1px; }
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+}
+
+/* Estilo da Mensagem */
+.msg {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+.msg.received { background: rgba(255,255,255,0.05); align-self: flex-start; border-bottom-left-radius: 2px; }
+.msg.sent { background: #fff; color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
+
+.chat-input-area {
+    padding: 15px;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    gap: 10px;
+}
+.chat-input-area input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 0.8rem;
+    outline: none;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
     </style>
 </head>
 <body>
@@ -222,6 +322,56 @@
         }, { threshold: 0.6 });
 
         cards.forEach(card => observer.observe(card));
+        <div id="chat-wrapper">
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h4><i class="fa-solid fa-circle" style="color: #00ff00; font-size: 0.5rem; margin-right: 8px;"></i> CHAT GLOBAL</h4>
+            <i class="fa-solid fa-xmark" style="cursor: pointer; opacity: 0.5;" onclick="toggleChat()"></i>
+        </div>
+        
+        <div class="chat-messages" id="chatMsgs">
+            <div class="msg received"><strong>Sistema:</strong> Bem-vindo ao Chat Global RFL•★•REAL. Mantenha a ética.</div>
+            <div class="msg received"><strong>User_01:</strong> A interface está incrível!</div>
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" placeholder="Escreva uma mensagem..." id="chatInput">
+            <button onclick="sendMsg()" style="background: none; border: none; color: #fff; cursor: pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div class="chat-trigger" onclick="toggleChat()">
+        <i class="fa-solid fa-message"></i>
+    </div>
+</div>
+        function toggleChat() {
+    const chat = document.getElementById('chatWindow');
+    if (chat.style.display === 'flex') {
+        chat.style.display = 'none';
+    } else {
+        chat.style.display = 'flex';
+    }
+}
+
+function sendMsg() {
+    const input = document.getElementById('chatInput');
+    const container = document.getElementById('chatMsgs');
+    
+    if (input.value.trim() !== "") {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'msg sent';
+        msgDiv.innerText = input.value;
+        container.appendChild(msgDiv);
+        
+        input.value = "";
+        container.scrollTop = container.scrollHeight; // Auto-scroll
+    }
+}
+
+// Enviar com a tecla Enter
+document.getElementById('chatInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') sendMsg();
+});
     </script>
 </body>
 </html>
