@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RFL•★•REAL | Abertura Elite</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #000000;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glow-white: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-deep);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .master-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- NOME DENTRO DA CÁPSULA DE VIDRO --- */
+        .glass-capsule {
+            padding: 22px 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 
+                        inset 0 0 10px rgba(255, 255, 255, 0.05);
+            margin-bottom: 25px;
+            animation: floating 4s infinite ease-in-out;
+            text-align: center;
+        }
+
+        .name {
+            font-weight: 900;
+            font-size: 3.2rem;
+            color: #ffffff;
+            letter-spacing: 10px;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            user-select: none;
+        }
+
+        /* --- FRASE COM BRILHO REALÇADO --- */
+        .phrase {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 14px;
+            margin-top: 5px;
+            /* Destaque atraente e discreto: Brilho Branco Intenso */
+            text-shadow: 0 0 10px var(--glow-white), 
+                         0 0 25px rgba(255, 255, 255, 0.6),
+                         0 0 45px rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            animation: fadeInGlow 2s forwards 0.8s;
+            user-select: none;
+        }
+
+        /* --- LINHA PULSANTE DE PONTA A PONTA --- */
+        .full-screen-line {
+            position: absolute;
+            bottom: 20%;
+            width: 100vw;
+            height: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .line-glow {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.9) 50%, 
+                transparent 100%);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: line-pulse 3s infinite ease-in-out;
+        }
+
+        /* --- ANIMAÇÕES --- */
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeInGlow {
+            from { opacity: 0; transform: translateY(10px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        @keyframes line-pulse {
+            0%, 100% { opacity: 0.1; transform: scaleX(0.1); }
+            50% { opacity: 1; transform: scaleX(1); }
+        }
+
+        /* --- RESPONSIVIDADE (MOBILE) --- */
+        @media (max-width: 600px) {
+            .name { font-size: 2rem; letter-spacing: 5px; }
+            .phrase { font-size: 0.8rem; letter-spacing: 7px; text-align: center; }
+            .glass-capsule { padding: 15px 35px; }
+            .full-screen-line { bottom: 25%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="master-container">
+        <div class="glass-capsule">
+            <h1 class="name">RFL•★•REAL</h1>
+        </div>
+        
+        <p class="phrase">Bem-vindo ao topo.</p>
+    </div>
+
+    <div class="full-screen-line">
+        <div class="line-glow"></div>
+    </div>
+
+    <script>
+        // Redireciona para o index.html após a animação de impacto
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                // Adiciona um efeito de saída suave antes de mudar de página
+                document.body.style.transition = "opacity 1s ease";
+                document.body.style.opacity = "0";
+                
+                setTimeout(() => {
+                    window.location.href = "index.html"; 
+                }, 1000);
+            }, 5000); // 5 segundos para curtir a abertura
+        });
+    </script>
+</body>
+</html>
