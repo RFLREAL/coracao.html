@@ -12,7 +12,7 @@
         :root {
             --accent: #ffffff;
             --bg: #000000;
-            --glow-color: rgba(255, 255, 255, 0.05); /* Cor que mudará via JS */
+            --glow-color: rgba(255, 255, 255, 0.05);
             --glass: rgba(255, 255, 255, 0.05);
             --border: 1px solid rgba(255, 255, 255, 0.1);
             --side-width: 80px;
@@ -25,10 +25,9 @@
             margin: 0;
             overflow: hidden;
             height: 100vh;
-            transition: background 1.2s ease; /* Transição suave de cor */
+            transition: background 1.2s ease;
         }
 
-        /* --- FUNDO AMBIENTE --- */
         .ambient-bg {
             position: fixed;
             top: 50%; left: 50%;
@@ -41,7 +40,6 @@
             border-radius: 50%;
         }
 
-        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0; width: 100%; height: 80px;
@@ -56,7 +54,6 @@
         .header-content h1 { font-family: 'Outfit'; font-size: 1.1rem; letter-spacing: 5px; margin: 0; }
         .header-line { width: 40px; height: 2px; background: #fff; margin: 5px auto; box-shadow: 0 0 15px #fff; }
 
-        /* --- LAYOUT GRID --- */
         .grid-container {
             display: grid;
             grid-template-columns: var(--side-width) 1fr var(--side-width);
@@ -88,13 +85,12 @@
             box-shadow: 0 0 20px rgba(255,255,255,0.1);
         }
 
-        /* --- FEED CENTRAL --- */
         main {
             padding: 40px 20px;
             overflow-y: auto;
             scrollbar-width: none;
             display: flex; flex-direction: column; align-items: center;
-            scroll-snap-type: y proximity; /* Faz o post "travar" levemente no centro */
+            scroll-snap-type: y proximity;
         }
         main::-webkit-scrollbar { display: none; }
 
@@ -119,13 +115,10 @@
             border-color: rgba(255,255,255,0.2);
         }
 
-        .post-img { width: 100%; position: relative; }
         .post-img img { width: 100%; display: block; transition: 1s; }
-
         .post-info { padding: 25px; text-align: left; }
         .post-info h3 { font-family: 'Outfit'; font-size: 0.9rem; margin: 0; letter-spacing: 1px; opacity: 0.8; }
 
-        /* --- BOTÃO ADD --- */
         .btn-add {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             width: 65px; height: 65px; background: #fff; color: #000; border-radius: 50%;
@@ -140,110 +133,37 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
-        @media (max-width: 600px) {
-            .grid-container { grid-template-columns: 1fr; }
-            aside { display: none; }
+        /* --- CHAT GLOBAL ESTILO --- */
+        #chat-wrapper {
+            position: fixed; bottom: 25px; right: 25px;
+            z-index: 2500; display: flex; flex-direction: column; align-items: flex-end;
         }
-        /* --- CHAT GLOBAL EMPRESARIAL --- */
-#chat-wrapper {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 2500;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
 
-/* Botão de abrir o Chat */
-.chat-trigger {
-    width: 55px;
-    height: 55px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 1.3rem;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    transition: 0.4s;
-}
-.chat-trigger:hover { transform: scale(1.1); background: rgba(255, 255, 255, 0.2); }
+        .chat-trigger {
+            width: 55px; height: 55px; background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.3rem; cursor: pointer; transition: 0.4s;
+        }
 
-/* Caixa do Chat */
-.chat-window {
-    width: 320px;
-    height: 450px;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    margin-bottom: 15px;
-    display: none; /* Escondido por padrão */
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    animation: fadeInUp 0.4s ease;
-}
+        .chat-window {
+            width: 300px; height: 400px; background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px; margin-bottom: 15px; display: none;
+            flex-direction: column; overflow: hidden; animation: fadeInUp 0.4s ease;
+        }
 
-.chat-header {
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.chat-header h4 { font-family: 'Outfit'; font-size: 0.9rem; margin: 0; letter-spacing: 1px; }
+        .chat-header { padding: 12px; background: rgba(255, 255, 255, 0.03); display: flex; justify-content: space-between; align-items: center; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { max-width: 80%; padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; }
+        .msg.received { background: rgba(255,255,255,0.05); align-self: flex-start; }
+        .msg.sent { background: #fff; color: #000; align-self: flex-end; }
+        .chat-input-area { padding: 10px; display: flex; gap: 8px; }
+        .chat-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 6px 10px; color: #fff; outline: none; }
 
-.chat-messages {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    scrollbar-width: thin;
-}
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Estilo da Mensagem */
-.msg {
-    max-width: 80%;
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    line-height: 1.4;
-}
-.msg.received { background: rgba(255,255,255,0.05); align-self: flex-start; border-bottom-left-radius: 2px; }
-.msg.sent { background: #fff; color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
-
-.chat-input-area {
-    padding: 15px;
-    background: rgba(0,0,0,0.2);
-    display: flex;
-    gap: 10px;
-}
-.chat-input-area input {
-    flex: 1;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    padding: 8px 12px;
-    color: #fff;
-    font-family: 'Poppins';
-    font-size: 0.8rem;
-    outline: none;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        @media (max-width: 600px) { .grid-container { grid-template-columns: 1fr; } aside { display: none; } }
     </style>
 </head>
 <body>
@@ -266,32 +186,13 @@
 
         <main id="feed">
             <div class="post-card" data-color="rgba(0, 210, 255, 0.15)">
-                <div class="post-img">
-                    <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1000">
-                </div>
-                <div class="post-info">
-                    <h3>RFL•★•REAL | O futuro é agora.</h3>
-                </div>
+                <div class="post-img"><img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1000"></div>
+                <div class="post-info"><h3>RFL•★•REAL | O futuro é agora.</h3></div>
             </div>
-
             <div class="post-card" data-color="rgba(255, 170, 0, 0.12)">
-                <div class="post-img">
-                    <img src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000">
-                </div>
-                <div class="post-info">
-                    <h3>SISTEMA | Estética e Performance.</h3>
-                </div>
+                <div class="post-img"><img src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000"></div>
+                <div class="post-info"><h3>SISTEMA | Estética e Performance.</h3></div>
             </div>
-
-            <div class="post-card" data-color="rgba(160, 32, 240, 0.15)">
-                <div class="post-img">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000">
-                </div>
-                <div class="post-info">
-                    <h3>ELITE | Conexões de alto nível.</h3>
-                </div>
-            </div>
-
             <div style="height: 200px;"></div>
         </main>
 
@@ -304,7 +205,25 @@
 
     <div class="btn-add"><i class="fa-solid fa-plus"></i></div>
 
+    <div id="chat-wrapper">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4 style="font-size: 0.7rem;"><i class="fa-solid fa-circle" style="color: #00ff00; font-size: 0.4rem; margin-right: 5px;"></i> CHAT GLOBAL</h4>
+                <i class="fa-solid fa-xmark" style="cursor: pointer; opacity: 0.5;" onclick="toggleChat()"></i>
+            </div>
+            <div class="chat-messages" id="chatMsgs">
+                <div class="msg received"><strong>Sistema:</strong> Bem-vindo, RFL•★•REAL.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" placeholder="Escreva..." id="chatInput">
+                <button onclick="sendMsg()" style="background:none; border:none; color:#fff; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div class="chat-trigger" onclick="toggleChat()"><i class="fa-solid fa-message"></i></div>
+    </div>
+
     <script>
+        // Efeito de Brilho Ambiente
         const ambient = document.getElementById('ambient');
         const cards = document.querySelectorAll('.post-card');
 
@@ -312,7 +231,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
-                    // Muda a cor do fundo baseada no atributo data-color do post
                     const color = entry.target.getAttribute('data-color');
                     ambient.style.background = color;
                 } else {
@@ -322,56 +240,29 @@
         }, { threshold: 0.6 });
 
         cards.forEach(card => observer.observe(card));
-        <div id="chat-wrapper">
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h4><i class="fa-solid fa-circle" style="color: #00ff00; font-size: 0.5rem; margin-right: 8px;"></i> CHAT GLOBAL</h4>
-            <i class="fa-solid fa-xmark" style="cursor: pointer; opacity: 0.5;" onclick="toggleChat()"></i>
-        </div>
-        
-        <div class="chat-messages" id="chatMsgs">
-            <div class="msg received"><strong>Sistema:</strong> Bem-vindo ao Chat Global RFL•★•REAL. Mantenha a ética.</div>
-            <div class="msg received"><strong>User_01:</strong> A interface está incrível!</div>
-        </div>
 
-        <div class="chat-input-area">
-            <input type="text" placeholder="Escreva uma mensagem..." id="chatInput">
-            <button onclick="sendMsg()" style="background: none; border: none; color: #fff; cursor: pointer;"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <div class="chat-trigger" onclick="toggleChat()">
-        <i class="fa-solid fa-message"></i>
-    </div>
-</div>
+        // Funções do Chat
         function toggleChat() {
-    const chat = document.getElementById('chatWindow');
-    if (chat.style.display === 'flex') {
-        chat.style.display = 'none';
-    } else {
-        chat.style.display = 'flex';
-    }
-}
+            const chat = document.getElementById('chatWindow');
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+        }
 
-function sendMsg() {
-    const input = document.getElementById('chatInput');
-    const container = document.getElementById('chatMsgs');
-    
-    if (input.value.trim() !== "") {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'msg sent';
-        msgDiv.innerText = input.value;
-        container.appendChild(msgDiv);
-        
-        input.value = "";
-        container.scrollTop = container.scrollHeight; // Auto-scroll
-    }
-}
+        function sendMsg() {
+            const input = document.getElementById('chatInput');
+            const container = document.getElementById('chatMsgs');
+            if (input.value.trim() !== "") {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'msg sent';
+                msgDiv.innerHTML = `<strong>Tu:</strong> ${input.value}`;
+                container.appendChild(msgDiv);
+                input.value = "";
+                container.scrollTop = container.scrollHeight;
+            }
+        }
 
-// Enviar com a tecla Enter
-document.getElementById('chatInput').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') sendMsg();
-});
+        document.getElementById('chatInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMsg();
+        });
     </script>
 </body>
 </html>
