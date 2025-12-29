@@ -184,6 +184,62 @@
             flex-direction: column;
             align-items: center;
         }
+        /* --- ESTILO DO POST DE ELITE (PARA O CENTRO) --- */
+        .elite-post {
+            width: 95%;
+            max-width: 500px; /* Tamanho ideal para fotos/vídeos */
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .elite-post:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
+        }
+
+        .post-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 12px; }
+        
+        .user-avatar { 
+            width: 38px; height: 38px; 
+            background: linear-gradient(45deg, var(--accent), #fff); 
+            border-radius: 50%; 
+            border: 2px solid #000;
+        }
+
+        .user-name { font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; color: #fff; }
+
+        .post-media { position: relative; width: 100%; aspect-ratio: 4/5; background: #000; }
+        .post-media img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+        
+        .media-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 3rem; color: rgba(255,255,255,0.3); pointer-events: none;
+        }
+
+        .post-footer { padding: 15px; background: rgba(0,0,0,0.3); }
+        
+        .post-stats { 
+            display: flex; gap: 20px; font-size: 1rem; 
+            color: var(--accent); margin-bottom: 12px; 
+        }
+
+        .post-stats i { cursor: pointer; transition: 0.3s; }
+        .post-stats i:hover { transform: scale(1.2); color: #fff; }
+
+        .post-caption { font-size: 0.8rem; color: #eee; line-height: 1.5; margin: 0; }
+        .post-caption strong { color: var(--accent); margin-right: 5px; }
     </style>
 </head>
 <body>
@@ -209,6 +265,32 @@
         </aside>
 
         <main class="center-feed">
+
+            <div class="elite-post">
+                <div class="post-header">
+                    <div class="user-info">
+                        <div class="user-avatar"></div>
+                        <span class="user-name">RFL•★•REAL</span>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+
+                <div class="post-media">
+                    <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=1000" alt="Mídia de Elite">
+                    <div class="media-overlay">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                </div>
+
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span><i class="fa-solid fa-heart"></i> 1.5k</span>
+                        <span><i class="fa-solid fa-comment"></i> 240</span>
+                        <span><i class="fa-solid fa-share-nodes"></i></span>
+                    </div>
+                    <p class="post-caption"><strong>RFL•★•REAL</strong> Domine o topo. O estilo não é uma escolha, é um lifestyle. ⚡</p>
+                </div>
+            </div>
 </main>
            
         <aside class="right-column">
@@ -222,9 +304,48 @@
         </aside>
     </div>
 
-    <div class="post-center-anchor">
+   <div class="post-center-anchor">
         <div class="btn-plus-master"><i class="fa-solid fa-plus"></i></div>
     </div>
 
-</body>
+    <script>
+        // Função para curtir o post
+        const heartBtn = document.querySelector('.fa-heart').parentElement;
+        let liked = false;
+
+        heartBtn.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            const text = this.innerText.split(' ');
+            let count = parseFloat(text[1]);
+
+            if(!liked) {
+                icon.style.color = 'var(--accent)';
+                icon.style.textShadow = '0 0 15px var(--accent)';
+                this.style.color = 'var(--accent)';
+                this.innerHTML = `<i class="fa-solid fa-heart" style="color: var(--accent); text-shadow: 0 0 15px var(--accent);"></i> ${(count + 0.1).toFixed(1)}k`;
+                liked = true;
+            } else {
+                icon.style.color = '';
+                icon.style.textShadow = '';
+                this.style.color = '';
+                this.innerHTML = `<i class="fa-solid fa-heart"></i> 1.5k`;
+                liked = false;
+            }
+        });
+
+        // Efeito de seleção nos botões laterais
+        const allBtns = document.querySelectorAll('.nav-btn');
+        allBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                allBtns.forEach(b => {
+                    b.style.color = '#444';
+                    b.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                });
+                this.style.color = 'var(--accent)';
+                this.style.borderColor = 'var(--accent)';
+            });
+        });
+    </script>
+
+</body> 
 </html>
