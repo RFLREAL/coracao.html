@@ -2,207 +2,135 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Elite Hub | RFL•★•REAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFL•★•REAL | Elite Hub</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --accent: #00d2ff;
-            --white: #ffffff;
-            --bg: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: 1px solid rgba(255, 255, 255, 0.08);
-            --side-width: 80px;
+            --bg: #000000;
+            --white-glow: rgba(255, 255, 255, 0.9);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-glass: rgba(255, 255, 255, 0.15);
         }
 
-        body {
-            background: var(--bg);
-            background-attachment: fixed;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
             overflow: hidden;
-            height: 100vh;
+            font-family: 'Outfit', sans-serif;
         }
 
-        /* --- HEADER --- */
-        .header-master {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 90px;
-            background: rgba(0, 0, 0, 0.95);
+        /* CONTAINER DA ABERTURA */
+        .splash-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* NOME COM BORDA DE VIDRO (GLASSMORPHISM) */
+        .glass-box {
+            padding: 25px 55px;
+            background: var(--glass);
             backdrop-filter: blur(20px);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 25px; z-index: 1000; border-bottom: var(--border);
-            box-sizing: border-box;
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 35px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            animation: float-ui 4s infinite ease-in-out;
         }
 
-        .brand-name {
-            font-family: 'Outfit'; font-weight: 900; font-size: 1.2rem;
-            color: var(--white); letter-spacing: 2px; cursor: pointer;
+        .name-main {
+            font-weight: 900;
+            font-size: 3.5rem;
+            color: #ffffff;
+            letter-spacing: 8px;
+            margin: 0;
+            user-select: none;
         }
 
-        .welcome-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .welcome-text { font-family: 'Outfit'; font-size: 0.85rem; letter-spacing: 5px; text-transform: uppercase; margin: 0; }
-        .laser-line { 
-            width: 80%; height: 2px; 
-            background: linear-gradient(90deg, transparent, var(--accent), #fff, var(--accent), transparent); 
-            margin-top: 10px; box-shadow: 0 0 15px var(--accent); 
-            animation: laser-expand 2s infinite alternate ease-in-out; 
+        /* FRASE COM BRILHO REALÇADO */
+        .phrase-main {
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            color: #ffffff;
+            /* Brilho branco realçado e discreto */
+            text-shadow: 0 0 20px var(--white-glow), 0 0 40px rgba(255, 255, 255, 0.4);
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 2s forwards 0.5s;
         }
 
-        /* --- LAYOUT --- */
-        .main-wrapper { display: grid; grid-template-columns: var(--side-width) 1fr var(--side-width); margin-top: 90px; height: calc(100vh - 90px); }
-        
-        .left-column, .right-column { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px 0; border-right: var(--border); }
-        .right-column { border-right: none; border-left: var(--border); }
-
-        .nav-btn {
-            width: 48px; height: 48px; background: var(--glass); border: var(--border);
-            border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            color: #444; font-size: 1.1rem; transition: 0.4s; cursor: pointer;
-        }
-        .nav-btn:hover, .nav-btn.active { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
-
-        /* --- FEED --- */
-        .center-feed { padding: 20px; overflow-y: auto; scrollbar-width: none; display: flex; flex-direction: column; align-items: center; }
-        .center-feed::-webkit-scrollbar { display: none; }
-
-        .elite-post { 
-            width: 95%; max-width: 500px; background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(0, 210, 255, 0.15); border-radius: 20px; 
-            margin-bottom: 30px; overflow: hidden; backdrop-filter: blur(10px); 
+        /* LINHA PULSANTE DE PONTA A PONTA */
+        .line-scanner {
+            position: absolute;
+            bottom: 20%;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                transparent 100%);
+            box-shadow: 0 0 15px #ffffff;
+            animation: scan-pulse 3s infinite ease-in-out;
         }
 
-        .post-media { position: relative; width: 100%; aspect-ratio: 4/5; background: #000; cursor: pointer; }
-        .post-media img { width: 100%; height: 100%; object-fit: cover; }
-        .media-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: rgba(255,255,255,0.2); pointer-events: none; }
-
-        /* --- BOTÃO POSTAR --- */
-        .post-center-anchor { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 2000; }
-        .btn-plus-master {
-            width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent), #0080ff);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            color: #000; font-size: 1.8rem; box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
-            border: 4px solid #000; cursor: pointer; transition: 0.3s;
+        /* ANIMAÇÕES */
+        @keyframes float-ui {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
-        /* --- PERFIL --- */
-        #profile-overlay { position: fixed; top: 100%; left: 0; width: 100%; height: 100%; background: #000; z-index: 3000; transition: 0.6s cubic-bezier(0.8, 0, 0.2, 1); overflow-y: auto; }
-        #profile-overlay.active { top: 0; }
-        .profile-header { text-align: center; padding: 40px 20px; }
-        .profile-avatar-big { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(45deg, var(--accent), #fff); margin: 0 auto 15px; border: 3px solid var(--accent); }
-        .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-        .grid-item { aspect-ratio: 1/1; background: #111; background-size: cover; background-position: center; }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: scale(1); }
+        }
 
+        @keyframes scan-pulse {
+            0%, 100% { transform: scaleX(0.1); opacity: 0.1; }
+            50% { transform: scaleX(1); opacity: 0.8; }
+        }
+
+        /* AJUSTE PARA CELULAR */
         @media (max-width: 600px) {
-            .main-wrapper { grid-template-columns: 1fr; }
-            .left-column, .right-column { display: none; }
-            .mobile-nav { 
-                display: flex; position: fixed; bottom: 0; width: 100%; height: 60px; 
-                background: #000; border-top: var(--border); justify-content: space-around; align-items: center; z-index: 1500;
-            }
+            .name-main { font-size: 2.2rem; letter-spacing: 4px; }
+            .phrase-main { font-size: 0.75rem; letter-spacing: 6px; }
+            .glass-box { padding: 18px 35px; }
         }
-
-        @keyframes laser-expand { 0% { width: 30%; } 100% { width: 90%; } }
-        @keyframes heart-pop { 0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <header class="header-master">
-        <div class="brand-name profile-trigger">RFL•★•REAL</div>
-        <div class="welcome-box">
-            <h2 class="welcome-text">Bem-vindo ao topo!</h2>
-            <div class="laser-line"></div>
+    <div class="splash-wrapper">
+        <div class="glass-box">
+            <h1 class="name-main">RFL•★•REAL</h1>
         </div>
-        <div style="width: 45px; text-align: center; color: var(--accent);"><i class="fa-solid fa-magnifying-glass"></i></div>
-    </header>
-
-    <div class="main-wrapper">
-        <aside class="left-column">
-            <div class="nav-btn active"><i class="fa-solid fa-house"></i></div>
-            <div class="nav-btn profile-trigger"><i class="fa-solid fa-user"></i></div>
-        </aside>
-
-        <main class="center-feed" id="main-feed">
-            <div class="elite-post">
-                <div style="padding: 12px; display: flex; align-items: center; gap: 10px;">
-                    <div class="user-avatar" style="width: 30px; height: 30px;"></div>
-                    <span style="font-weight: 700; font-size: 0.8rem;">RFL•★•REAL</span>
-                </div>
-                <div class="post-media">
-                    <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=1000">
-                    <div class="media-overlay"><i class="fa-solid fa-play"></i></div>
-                </div>
-                <div style="padding: 15px;">
-                    <div style="color: var(--accent); margin-bottom: 8px;" class="like-btn"><i class="fa-solid fa-heart"></i> <span class="count">1.5k</span></div>
-                    <p style="font-size: 0.8rem; margin: 0;"><strong>RFL•★•REAL</strong> O topo é o nosso lugar. ⚡</p>
-                </div>
-            </div>
-        </main>
-
-        <aside class="right-column">
-            <div class="nav-btn"><i class="fa-solid fa-bell"></i></div>
-            <div class="nav-btn"><i class="fa-solid fa-trophy"></i></div>
-        </aside>
+        <p class="phrase-main">Bem-vindo ao topo.</p>
     </div>
 
-    <div class="post-center-anchor">
-        <div class="btn-plus-master" id="add-post"><i class="fa-solid fa-plus"></i></div>
-    </div>
-
-    <div id="profile-overlay">
-        <div style="position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer;" id="close-profile">&times;</div>
-        <div class="profile-header">
-            <div class="profile-avatar-big"></div>
-            <h2 style="font-family: 'Outfit';">RFL•★•REAL</h2>
-            <p style="opacity: 0.6;">Bem-vindo ao topo.</p>
-        </div>
-        <div class="profile-grid" id="profile-grid">
-            <div class="grid-item" style="background-image: url('https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=1000')"></div>
-        </div>
-    </div>
+    <div class="line-scanner"></div>
 
     <script>
-        // Lógica de curtida e Coração
-        function setupPost(post) {
-            const media = post.querySelector('.post-media');
-            const likeBtn = post.querySelector('.like-btn');
-            media.ondblclick = () => {
-                const h = document.createElement('i');
-                h.className = 'fa-solid fa-heart';
-                h.style.cssText = `position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; color: white; text-shadow: 0 0 20px var(--accent); animation: heart-pop 0.8s forwards; pointer-events: none;`;
-                media.appendChild(h);
-                setTimeout(() => h.remove(), 800);
-            };
-        }
-        setupPost(document.querySelector('.elite-post'));
-
-        // Abrir/Fechar Perfil
-        const prof = document.getElementById('profile-overlay');
-        document.querySelectorAll('.profile-trigger').forEach(b => b.onclick = () => prof.classList.add('active'));
-        document.getElementById('close-profile').onclick = () => prof.classList.remove('active');
-
-        // Adicionar Post Real
-        const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*';
-        document.getElementById('add-post').onclick = () => input.click();
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            if(file) {
-                const url = URL.createObjectURL(file);
-                const p = document.createElement('div');
-                p.className = 'elite-post';
-                p.innerHTML = `<div class="post-header" style="padding:12px; display:flex; align-items:center; gap:10px;"><div class="user-avatar" style="width:30px; height:30px;"></div><span>RFL•★•REAL</span></div><div class="post-media"><img src="${url}"></div><div style="padding:15px;"><div class="like-btn" style="color:var(--accent)"><i class="fa-solid fa-heart"></i> <span class="count">0</span></div><p style="font-size:0.8rem"><strong>RFL•★•REAL</strong> Novo post no topo. ⚡</p></div>`;
-                document.getElementById('main-feed').prepend(p);
-                setupPost(p);
+        // REDIRECIONAMENTO PARA O CORPO DO SITE
+        // Após 5 segundos, ele busca o arquivo "feed.html"
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                // Efeito de fade-out suave
+                document.body.style.transition = "opacity 1.5s ease";
+                document.body.style.opacity = "0";
                 
-                const g = document.createElement('div'); g.className = 'grid-item'; g.style.backgroundImage = `url(${url})`;
-                document.getElementById('profile-grid').prepend(g);
-            }
-        };
+                setTimeout(() => {
+                    window.location.href = "feed.html";
+                }, 1500);
+            }, 5000);
+        });
     </script>
 </body>
 </html>
