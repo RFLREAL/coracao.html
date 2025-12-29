@@ -2,83 +2,62 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RFL•★•REAL | Abertura</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFL•★•REAL | Start</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-deep: #000000;
-            --glass-bg: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glow-white: #ffffff;
-        }
-
         body, html {
             margin: 0; padding: 0;
-            background: var(--bg-deep);
+            background: #000 !important; /* Força fundo preto imediato */
             height: 100vh; width: 100vw;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; font-family: 'Outfit', sans-serif;
+            color: white;
         }
 
         .master-container {
             display: flex; flex-direction: column; align-items: center;
-            position: relative; z-index: 10;
+            z-index: 10;
         }
 
-        /* Nome em Borda de Vidro Suave */
+        /* Vidro ao redor do nome */
         .glass-capsule {
-            padding: 22px 60px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            padding: 25px 60px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-            margin-bottom: 25px;
-            animation: floating 4s infinite ease-in-out;
+            margin-bottom: 20px;
+            animation: float 4s infinite ease-in-out;
         }
 
         .name {
-            font-weight: 900; font-size: 3.2rem;
-            color: #ffffff; letter-spacing: 10px; margin: 0;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            font-size: 3.2rem; letter-spacing: 10px; margin: 0;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
-        /* Frase com Brilho Branco Realçado */
         .phrase {
-            font-weight: 700; font-size: 1.2rem;
-            color: #ffffff; text-transform: uppercase;
-            letter-spacing: 14px; margin-top: 5px;
-            text-shadow: 0 0 15px var(--glow-white), 0 0 30px rgba(255, 255, 255, 0.4);
-            opacity: 0;
-            animation: fadeInGlow 2s forwards 0.8s;
+            font-size: 1.2rem; text-transform: uppercase;
+            letter-spacing: 12px; margin-top: 10px; font-weight: bold;
+            text-shadow: 0 0 15px #fff, 0 0 30px rgba(255,255,255,0.5);
+            animation: pulse-text 2s infinite ease-in-out;
         }
 
-        /* Linha Pulsante de Ponta a Ponta */
-        .full-screen-line {
-            position: absolute; bottom: 20%;
-            width: 100vw; height: 2px;
-            display: flex; justify-content: center;
+        /* Linha de ponta a ponta */
+        .line-container {
+            position: absolute; bottom: 20%; width: 100%; height: 2px;
         }
-
-        .line-glow {
+        .line {
             width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, #fff, transparent);
-            box-shadow: 0 0 20px #fff;
-            animation: line-pulse 3s infinite ease-in-out;
+            box-shadow: 0 0 15px #fff;
+            animation: line-anim 3s infinite ease-in-out;
         }
 
-        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        @keyframes fadeInGlow { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes line-pulse { 0%, 100% { transform: scaleX(0.1); opacity: 0.1; } 50% { transform: scaleX(1); opacity: 1; } }
-
-        @media (max-width: 600px) {
-            .name { font-size: 2rem; letter-spacing: 5px; }
-            .phrase { font-size: 0.8rem; letter-spacing: 7px; text-align: center; }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes pulse-text { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+        @keyframes line-anim { 0%, 100% { transform: scaleX(0.1); opacity: 0.1; } 50% { transform: scaleX(1); opacity: 1; } }
     </style>
 </head>
 <body>
@@ -90,25 +69,15 @@
         <p class="phrase">Bem-vindo ao topo.</p>
     </div>
 
-    <div class="full-screen-line">
-        <div class="line-glow"></div>
+    <div class="line-container">
+        <div class="line"></div>
     </div>
 
     <script>
-        // REDIRECIONAMENTO AUTOMÁTICO
-        window.addEventListener('load', () => {
-            // Aguarda 5 segundos (tempo da animação) e muda de página
-            setTimeout(() => {
-                // Efeito de saída suave (fade out)
-                document.body.style.transition = "opacity 1s ease";
-                document.body.style.opacity = "0";
-                
-                setTimeout(() => {
-                    // DIRECIONA PARA O CORACAO.HTML
-                    window.location.href = "coracao.html"; 
-                }, 1000);
-            }, 5000); 
-        });
+       
+        setTimeout(() => {
+            window.location.href = "coracao.html";
+        }, 5000);
     </script>
 </body>
 </html>
